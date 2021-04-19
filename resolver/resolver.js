@@ -1,17 +1,13 @@
+const { authors, books } = require("../data/static");
+
 const resolvers = {
   Query: {
-    books: () => [
-      {
-        id: 1,
-        name: "De men phieu luu ky",
-        genre: "Adventure",
-      },
-      {
-        id: 2,
-        name: "Lam giau khong kho",
-        genre: "Education",
-      },
-    ],
+    books: () => books,
+    book: (parent, args) =>
+      books.find((book) => book.id.toString() === args.id),
+    authors: () => authors,
+    author: (parent, args) =>
+      authors.find((author) => author.id.toString() === args.id),
   },
 };
 
