@@ -8,11 +8,6 @@ const app = express();
 const typeDefs = require("./schema/schema");
 const resolvers = require("./resolver/resolver");
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
-
 const userDataBase = {
   username: "admin",
   password: "S@igon2020",
@@ -37,6 +32,15 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
+
+// Load db methods
+const mongoDataMethods = require("./data/db");
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: () => ({ mongoDataMethods }),
+});
 
 server.applyMiddleware({ app });
 
